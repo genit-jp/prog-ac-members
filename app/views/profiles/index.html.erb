@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to '自分のプロフィールを編集', edit_profile_path(current_user.id), class: "btn btn-outline-secondary" %>
+
+<div class="row">
+<% @profiles.each do |profile| %>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <a href="<%= profile_path(profile) %>">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= profile.name %></h5>
+            <img src="<%= profile.icon_image %>" style="max-width:64px;max-height:64px;float:left;margin-right:4px;">
+            <p class="card-text"><%= profile.goal %></p>
+            <p class="card-text"><%= profile.message %></p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+<% end %>
+</div>
