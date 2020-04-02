@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+<h1>参加予定システム構築中</h1>
+<script type="text/javascript">
+    function onDateChanged(e){
+        date = document.getElementById('date').value
+        window.location.href = `<%= attendances_path %>?date=${date}`;
+    }
+</script>
+<%= date_field_tag('date', @date, onchange: 'onDateChanged()') %>

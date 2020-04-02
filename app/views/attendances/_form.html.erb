@@ -1,0 +1,31 @@
+<%= form_with(model: attendance, local: true) do |form| %>
+  <% if attendance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(attendance.errors.count, "error") %> prohibited this attendance from being saved:</h2>
+
+      <ul>
+      <% attendance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.hidden_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :starts_at %>
+    <%= form.datetime_select :starts_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ends_at %>
+    <%= form.datetime_select :ends_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit '登録' %>
+  </div>
+<% end %>

@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to '自分のプロフィールを編集', edit_profile_path(current_user.id), class: "btn btn-outline-secondary" %>
-
 <div class="row">
 <% @profiles.each do |profile| %>
     <div class="col-lg-4 col-md-6 col-sm-12">

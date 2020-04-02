@@ -2,7 +2,7 @@
 
 <div class="card">
   <div class="card-body">
-    <img src="<%= @profile.icon_image %>" style="max-width:240px;max-height:240px;float:left;margin-right:4px;">
+    <img src="<%= @profile.icon_image %>" style="max-width:600px;max-height:600px;">
     <p class="card-text"><%= @profile.name_kana %></p>
     <h1 class="card-title"><%= @profile.name %></h1>
     <p class="card-title"><%= @profile.title %></p>
@@ -10,10 +10,8 @@
     <p class="card-text"><%= @profile.message %></p>
     <img src="<%= @profile.pr_sheet_image %>" style="width:100%;height:auto;">
     <p class="card-text"><%= @profile.description %></p>
-    <p class="card-text"><%= @profile.message %></p>
-    <p class="card-text"><%= @profile.message %></p>
   </div>
 </div>
 
-<%= link_to_if current_user.id == @profile.user_id, '編集', edit_profile_path(@profile), class: 'btn btn-default' %>
-<%= link_to '戻る', profiles_path, class: 'btn btn-default' %>
+<%= link_to_if current_user.id == @profile.user_id, '編集', edit_profile_path(@profile), class: 'btn btn-outline-secondary' %>
+<%= link_to '戻る', profiles_path, class: 'btn btn-outline-secondary' %>

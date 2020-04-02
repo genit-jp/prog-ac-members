@@ -20,7 +20,7 @@
         <%= form.text_area :description, label: "自由欄", rows: 10, readonly: readonly %>
       <% if readonly == false %>
         <div class="actions">
-          <%= form.submit %>
+          <%= form.submit '更新', :class => 'btn btn-primary' %>
       <% end  %>
     </div>
 <% end %>
