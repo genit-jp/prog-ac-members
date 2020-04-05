@@ -1,9 +1,51 @@
 <p id="notice"><%= notice %></p>
-<h1>参加予定システム構築中</h1>
+<h1>勉強予定</h1>
 <script type="text/javascript">
     function onDateChanged(e){
         date = document.getElementById('date').value
-        window.location.href = `<%= attendances_path %>?date=${date}`;
+        if(date){
+            window.location.href = `<%= attendances_path %>?date=${date}`;
+        }
     }
 </script>
 <%= date_field_tag('date', @date, onchange: 'onDateChanged()') %>
+<%= link_to '前の日', attendances_path(:date => @date.yesterday), class: 'btn btn-outline-secondary' %>
+<%= link_to '次の日', attendances_path(:date => @date.tomorrow), class: 'btn btn-outline-secondary' %>
+<br/>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal1">
+  自分の予定
+</button>
+<div class="modal" id="modal1" tabindex="-1"
+     role="dialog" aria-labelledby="label1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="label1"><%= @date.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[Time.now.wday]})") %>の予定</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= bootstrap_form_tag url: '/attendances' do |f| %>
+        <div class="modal-body">
+          <%= hidden_field_tag :date, @date %>
+          <%= f.select :start_time, options_for_select(AttendancesHelper.makeTimeArray(), @attendance.present? ? @attendance.start_time : nil), label: "開始時刻" %>
+          <%= f.select :end_time, options_for_select(AttendancesHelper.makeTimeArray(), @attendance.present? ? @attendance.end_time : nil), label: "終了時刻" %>
+          <%= f.check_box :is_remote, checked: @attendance.present? ? @attendance.is_remote : false, label: "リモート" %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit '更新', :class => 'btn btn-primary' %>
+          <% if @attendance %>
+            <%= link_to '削除', attendance_path(@attendance, :date => @date), method: :delete, :class => 'btn btn-danger' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>
+
+<hr />
+<div class="container">
+  <h3>みんなの予定</h3>
+<%= timeline @timelines %>
+</div>

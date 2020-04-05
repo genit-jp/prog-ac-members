@@ -9,6 +9,10 @@ services:
     tty: true
     stdin_open: true
     ports:
-      - "3000:3000" # ホストからゲストへポートフォワード
+      - "3000:3000"
     volumes:
-      - .:/myproject # ソースコード変更したらDocker側も即反映されるように
+      - .:/myproject
+      - bundle:/bundle
+volumes:
+  bundle:
+    driver: local
