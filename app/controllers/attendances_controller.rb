@@ -2,7 +2,7 @@ class AttendancesController < InheritedResources::Base
   before_action :authenticate_user!, except:  []
   def index
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
-    @attendances = Attendance.where("date LIKE ?", @date)
+    @attendances = Attendance.where("cast(date as text) LIKE ?", @date)
     @attendance = @attendances.find_by(:user_id => current_user.id)
     @timelines = []
     for att in @attendances do
