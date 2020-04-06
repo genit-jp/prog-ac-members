@@ -1,5 +1,6 @@
 class AttendancesController < InheritedResources::Base
-  before_action :authenticate_user!, except:  []
+  before_action :authenticate_user!, except:  [:slack]
+  protect_from_forgery except: [:slack]
   def index
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @attendances = Attendance.where("cast(date as text) LIKE ?", @date)
@@ -27,6 +28,23 @@ class AttendancesController < InheritedResources::Base
     Attendance.find(params[:id]).destroy
     flash[:success] = "予定を削除しました"
     redirect_to attendances_path(:date => params[:date])
+  end
+
+  def slack
+    date = params[:date] ? Date.parse(params[:date]) : Date.today
+    attendances = Attendance.where("cast(date as text) LIKE ?", date)
+    notifier = Slack::Notifier.new(
+        Rails.application.credentials.slack[:webhook_url],
+        channel: '#スケジュール',
+        username: "メンバーズサイト"
+    )
+    strdate = date.strftime("%m月%d日(#{%w(日 月 火 水 木 金 土)[date.wday]})")
+    schedules = ""
+    for attendance in attendances do
+      schedules << "#{attendance.user.profile.name} #{attendance.start_time}〜#{attendance.end_time}\n"
+    end
+    additional = "※変更がある場合はこの投稿に返信してください。"
+    notifier.ping "*#{strdate}の予定*\n#{schedules}\n_#{additional}_"
   end
 
   private

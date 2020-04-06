@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :attendances
+  resources :attendances do
+    collection do
+      post 'slack'
+    end
+  end
   resources :profiles
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
