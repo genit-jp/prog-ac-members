@@ -43,7 +43,7 @@ class AttendancesController < InheritedResources::Base
     for attendance in attendances do
       schedules << "#{attendance.user.profile.name} #{attendance.start_time}〜#{attendance.end_time}\n"
     end
-    additional = "※変更がある場合はこの投稿に返信してください。"
+    additional = "※変更がある場合は変更内容を、1on1ミーティングをご希望の方は希望時間を、この投稿に返信してください。"
     notifier.ping "*#{strdate}の予定*\n#{schedules}\n_#{additional}_"
   end
 
