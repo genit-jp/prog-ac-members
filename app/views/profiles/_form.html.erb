@@ -10,17 +10,29 @@
           </ul>
   
       <% end %>
-        <%= form.text_field :name, label: "名前", readonly: readonly %>
-        <%= form.text_field :name_kana, label: "よみがな", readonly: readonly %>
-        <%= form.text_field :title, label: "学校・仕事等", readonly: readonly %>
-        <%= form.text_field :goal, label: "目標(こうなりたい！)", readonly: readonly %>
-        <%= form.text_field :message, label: "メッセージ(よろしく等)", readonly: readonly %>
-        <%= form.file_field :icon_image, label: "顔画像", readonly: readonly %>
-        <%= form.file_field :pr_sheet_image, label: "自己紹介シート", readonly: readonly %>
-        <%= form.text_area :description, label: "自由欄", rows: 10, readonly: readonly %>
-      <% if readonly == false %>
-        <div class="actions">
-          <%= form.submit '更新', :class => 'btn btn-primary' %>
-      <% end  %>
-    </div>
+      <%= form.text_field :name, label: "名前" %>
+      <%= form.text_field :name_kana, label: "よみがな" %>
+      <%= form.text_field :title, label: "学校・仕事等" %>
+      <%= form.text_field :goal, label: "目標(こうなりたい！)" %>
+      <%= form.text_field :message, label: "メッセージ(よろしく等)" %>
+      <%= form.file_field :icon_image, label: "顔画像" %>
+      <%= form.file_field :pr_sheet_image, label: "自己紹介シート" %>
+      <%= form.text_area :description, label: "自由欄", rows: 10 %>
+      <div class="actions">
+        <%= form.submit '更新', :class => 'btn btn-primary' %>
+      </div>
 <% end %>
+<script>
+    function pathToFilename(path) {
+        const arr = path.split(/\\|\//)
+        return arr[arr.length-1]
+    }
+    $('#profile_icon_image').on('change',function(){
+        var fileName = $(this).val();
+        $(this).next('.custom-file-label').html(pathToFilename(fileName));
+    })
+    $('#profile_pr_sheet_image').on('change',function(){
+        var fileName = $(this).val();
+        $(this).next('.custom-file-label').html(pathToFilename(fileName));
+    })
+</script>
