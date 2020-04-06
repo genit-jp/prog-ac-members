@@ -45,6 +45,12 @@ class AttendancesController < InheritedResources::Base
     end
     additional = "※変更がある場合は変更内容を、1on1ミーティングをご希望の方は希望時間を、この投稿に返信してください。"
     notifier.ping "*#{strdate}の予定*\n#{schedules}\n_#{additional}_"
+
+    # 金曜日はスケジュールの入力をお願いする
+    if date.wday == 5 then
+      nextdate = date.since(9.days).strftime("%m月%d日(#{%w(日 月 火 水 木 金 土)[date.wday]})")
+      notifier.ping "*今日は金曜日です。#{nextdate}までの学習予定を(仮でOK)入力してください。*"
+    end
   end
 
   private
