@@ -2,7 +2,7 @@ class AttendancesController < InheritedResources::Base
   before_action :authenticate_user!, except:  [:slack]
   protect_from_forgery except: [:slack]
   def index
-    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @date = params[:date] ? Date.parse(params[:date]) : Date.current
     @attendances = Attendance.where("cast(date as text) LIKE ?", @date)
     @attendance = @attendances.find_by(:user_id => current_user.id)
     @timelines = []
@@ -31,7 +31,7 @@ class AttendancesController < InheritedResources::Base
   end
 
   def slack
-    date = params[:date] ? Date.parse(params[:date]) : Date.today
+    date = params[:date] ? Date.parse(params[:date]) : Date.current
     attendances = Attendance.where("cast(date as text) LIKE ?", date)
     notifier = Slack::Notifier.new(
         Rails.application.credentials.slack[:webhook_url],
