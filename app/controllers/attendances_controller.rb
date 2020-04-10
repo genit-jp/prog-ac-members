@@ -48,7 +48,8 @@ class AttendancesController < InheritedResources::Base
 
     # 金曜日はスケジュールの入力をお願いする
     if date.wday == 5 then
-      nextdate = date.since(9.days).strftime("%m月%d日(#{%w(日 月 火 水 木 金 土)[date.wday]})")
+      nextdate = date.since(9.days)
+      nextdate.strftime("%m月%d日(#{%w(日 月 火 水 木 金 土)[nextdate.wday]})")
       notifier.ping "*今日は金曜日です。#{nextdate}までの学習予定を(仮でOK)入力してください。*"
     end
   end
