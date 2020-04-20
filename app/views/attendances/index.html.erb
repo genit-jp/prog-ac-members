@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<h1>勉強予定</h1>
+<h1>予定</h1>
 <script type="text/javascript">
     function onDateChanged(e){
         date = document.getElementById('date').value
@@ -13,7 +13,7 @@
 <%= link_to '次の日', attendances_path(:date => @date.tomorrow), class: 'btn btn-outline-secondary' %>
 <br/>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal1">
-  自分の予定
+  勉強予定を入力
 </button>
 <div class="modal" id="modal1" tabindex="-1"
      role="dialog" aria-labelledby="label1" aria-hidden="true">
@@ -46,6 +46,32 @@
 
 <hr />
 <div class="container">
-  <h3>みんなの予定</h3>
-<%= timeline @timelines, height: "1000px" %>
+  <h3>1on1 予約</h3>
+  <div class="container-fluid">
+    <div class="row">
+      <% for i in 10..22 do %>
+        <% time = "#{i}:00" %>
+        <div style="border-left: solid 5px #7db4e6; margin-bottom: 1em;" class="col-6 col-sm-3 col-lg-2"><%= "#{time}〜" %></div>
+        <div class="col-6 col-sm-3 col-lg-2">
+          <% booking = @bookings.find_by(:start_time => time) %>
+          <% if booking then %>
+            <%= booking.user.profile.name %>
+          <% else %>
+            <%= form_tag('/bookings', method: :post) do %>
+              <%= hidden_field_tag 'date', @date %>
+              <%= hidden_field_tag 'start_time', time %>
+              <%= submit_tag "予約する", class: "btn btn-sm btn-outline-secondary", data: { confirm: @date.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[@date.wday]}) #{time}〜 予約をしますか？") } %>
+            <% end %>
+        <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+<hr />
+<div class="container">
+  <h3>みんなの予定</h3>
+  <%= timeline @timelines, :height => "1000px"%>
+</div>
+

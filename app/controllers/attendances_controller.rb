@@ -6,6 +6,7 @@ class AttendancesController < InheritedResources::Base
     @attendances = Attendance.where("cast(date as text) LIKE ?", @date)
     @attendance = @attendances.find_by(:user_id => current_user.id)
     @timelines = []
+    @bookings = Booking.where("cast(date as text) LIKE ?", @date)
     for att in @attendances do
       if att.user.profile.present? then
         @timelines.push ["#{att.user.profile.name}#{att.is_remote ? '(リ)' : ''}", att.starts_at, att.ends_at]

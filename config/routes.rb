@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :bookings
   resources :attendances do
     collection do
       post 'slack'
