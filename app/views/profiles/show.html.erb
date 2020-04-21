@@ -12,6 +12,7 @@
     <p class="card-text"><%= @profile.description %></p>
   </div>
 </div>
-
+<% if current_user.id == @profile.user_id %>
 <%= link_to_if current_user.id == @profile.user_id, '編集', edit_profile_path(@profile), class: 'btn btn-outline-secondary' %>
+<% end %>
 <%= link_to '戻る', profiles_path, class: 'btn btn-outline-secondary' %>

@@ -6,6 +6,7 @@ class BookingsController < InheritedResources::Base
       notice = '既に予約が入っています'
     else
       booking.user_id = current_user.id
+      booking.title = params[:title]
       booking.save
     end
     redirect_to attendances_path(:date => params[:date]), notice: notice
@@ -14,7 +15,7 @@ class BookingsController < InheritedResources::Base
   private
 
     def booking_params
-      params.require(:booking).permit(:user_id, :date, :start_time)
+      params.require(:booking).permit(:user_id, :date, :start_time, :title)
     end
 
 end
