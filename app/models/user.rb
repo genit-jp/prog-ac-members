@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :timeoutable
   has_one :profile
   has_many :attendances
+  has_many :bookings
 
 end
