@@ -51,8 +51,8 @@
     <div class="row">
       <% for i in 10..21 do %>
         <% time = "#{i}:00" %>
-        <div style="border-left: solid 5px #7db4e6; margin-bottom: 1em;" class="col-6 col-sm-3 col-lg-2"><%= "#{time}〜" %></div>
-        <div class="col-6 col-sm-3 col-lg-2">
+        <div style="border-left: solid 5px #7db4e6; margin-bottom: 1em;" class="col-3 col-sm-3 col-lg-2"><%= "#{time}〜" %></div>
+        <div class="col-3 col-sm-3 col-lg-2">
           <% booking = @bookings.find_by(:start_time => time) %>
           <% if booking then %>
             <%= booking.title.present? ? booking.title : booking.user.profile.name %>
@@ -60,7 +60,7 @@
             <%= form_tag('/bookings', method: :post) do %>
               <%= hidden_field_tag 'date', @date %>
               <%= hidden_field_tag 'start_time', time %>
-              <%= submit_tag "予約する", class: "btn btn-sm btn-outline-secondary", data: { confirm: @date.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[@date.wday]}) #{time}〜 予約をしますか？") } %>
+              <%= submit_tag "予約", class: "btn btn-sm btn-outline-secondary", data: { confirm: @date.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[@date.wday]}) #{time}〜 予約をしますか？") } %>
             <% end %>
         <% end %>
         </div>
