@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <div class="row">
 <% @profiles.each do |profile| %>
-    <div class="col-lg-4 col-md-6 col-sm-12">
+    <div class="col-lg-4 col-md-6 col-sm-12 profile-card">
       <a href="<%= profile_path(profile) %>">
         <div class="card">
           <div class="card-body">

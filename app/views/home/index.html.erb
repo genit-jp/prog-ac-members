@@ -4,6 +4,7 @@
       document.getElementById('dialog-body').innerText = description
   }
 </script>
+<p id="notice"><%= notice %></p>
 
 <% if current_user.is_drop_out %>
   <div class="alert alert-warning" role="alert">
@@ -13,34 +14,69 @@
     </small>
   </div>
 <% end %>
-  <h2>運営からのお知らせ</h2>
-  <div class="list-group">
-    <% @articles.each do |article| %>
-      <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal1" onclick="setDialog('<%= article.title %>', '<%= article.description %>')">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1"><%= article.title %></h5>
-          <small>
-            <%= ApplicationHelper.makeDateTimePastTime(article.created_at) %>
-          </small>
-        </div>
-        <small><%= article.description %></small>
-      </a>
-    <% end %>
-  </div>
-  <div class="modal" id="modal1" tabindex="-1"
-       role="dialog" aria-labelledby="label1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="dialog-title"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" id="dialog-body"></div>
+<h3>運営からのお知らせ</h3>
+<div class="list-group">
+  <% @articles.each do |article| %>
+    <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal1" onclick="setDialog('<%= article.title %>', '<%= article.description %>')">
+      <div class="d-flex w-100 justify-content-between">
+        <p class="mb-1"><%= article.title %></p>
+        <small>
+          <%= ApplicationHelper.makeDateTimePastTime(article.created_at) %>
+        </small>
       </div>
+    </a>
+  <% end %>
+</div>
+<div class="modal" id="modal1" tabindex="-1"
+     role="dialog" aria-labelledby="label1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dialog-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="dialog-body"></div>
     </div>
   </div>
+</div>
 
 <hr />
-<h2>神戸プログラミングアカデミーのルール</h2>
+<h3>ステップアップ制度について</h3>
+<a href="https://docs.google.com/presentation/d/1kKCzmnLQebehghYMzocaT6wVphK9nyWhRYY43vKpUYw/edit#slide=id.p" target="_blank">外部リンク</a>
+<hr />
+
+<h3>ルール</h3>
+
+<ul>
+  <li><a href="<%= attendances_path %>">勉強スケジュール</a>の入力(毎週金曜日までに翌々週の日曜日まで入力する)</li>
+  <li>Slackの<a href="https://prog-ac.slack.com/archives/C011PQM65BM" target="_blank">#今日のやることやったこと</a>に毎日の勉強内容を報告する：日報</li>
+  <li>月末の成果発表会には必ず参加する</li>
+  <ul>
+    <li>発表者はステップ２以降のメンバー/チームのみ。どうしても出れない場合は事前に連絡をしておく。</li>
+  </ul>
+  <li>月１の学習アンケートに回答すること</li>
+  <li>月初にカリキュラムを記載する</li>
+</ul>
+
+<h3>メンバー</h3>
+<div class="row">
+  <% @profiles.each do |profile| %>
+    <div class="col-lg-4 col-md-6 col-sm-12 profile-card">
+      <a href="<%= profile_path(profile) %>">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= profile.name %></h5>
+            <img src="<%= profile.icon_image %>" style="max-width:64px;max-height:64px;float:left;margin-right:4px;">
+            <p class="card-text"><%= profile.goal %></p>
+            <p class="card-text"><%= profile.message %></p>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% end %>
+</div>
+
+<hr />
+
