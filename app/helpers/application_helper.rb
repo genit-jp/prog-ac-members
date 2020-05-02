@@ -13,4 +13,11 @@ module ApplicationHelper
       return "#{pasttime/60/60/24/30}ヶ月前"
     end
   end
+
+  def self.escape(str)
+    if str.blank?
+      return ''
+    end
+    return URI.escape(str)
+  end
 end

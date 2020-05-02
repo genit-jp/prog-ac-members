@@ -4,7 +4,7 @@ class ArticlesController < InheritedResources::Base
   private
 
     def article_params
-      params.require(:article).permit(:title, :description, :priority, :is_active)
+      params.require(:article).permit(:title, :description, :priority, :is_active, :link)
     end
 
 end

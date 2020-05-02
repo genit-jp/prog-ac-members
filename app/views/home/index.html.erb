@@ -1,7 +1,11 @@
 <script type="text/javascript">
-  function setDialog(title, description) {
-      document.getElementById('dialog-title').innerText = title
-      document.getElementById('dialog-body').innerText = description
+  function setDialog(title, description, link) {
+      document.getElementById('dialog-title').innerText = decodeURIComponent(title)
+      document.getElementById('dialog-body').innerText = decodeURIComponent(description)
+      if(link && link.length > 0){
+          document.getElementById('dialog-link').href = decodeURIComponent(link)
+      }
+      document.getElementById('dialog-footer').style.display = (link && link.length > 0) ? 'block' : 'none'
   }
 </script>
 <p id="notice"><%= notice %></p>
@@ -17,7 +21,7 @@
 <h3>運営からのお知らせ</h3>
 <div class="list-group">
   <% @articles.each do |article| %>
-    <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal1" onclick="setDialog('<%= article.title %>', '<%= article.description %>')">
+    <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modal1" onclick="setDialog('<%= ApplicationHelper.escape(article.title) %>', '<%= ApplicationHelper.escape(article.description) %>', '<%= ApplicationHelper.escape(article.link) %>')">
       <div class="d-flex w-100 justify-content-between">
         <p class="mb-1"><%= article.title %></p>
         <small>
@@ -38,6 +42,9 @@
         </button>
       </div>
       <div class="modal-body" id="dialog-body"></div>
+      <div class="modal-footer" id="dialog-footer">
+        <a class="btn btn-light" id="dialog-link" target="_blank">リンク</a>
+      </div>
     </div>
   </div>
 </div>
