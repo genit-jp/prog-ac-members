@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Daily Reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Text</th>
+      <th>Ts</th>
+      <th>Slack user</th>
+      <th>Team</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @daily_reports.each do |daily_report| %>
+      <tr>
+        <td><%= daily_report.id %></td>
+        <td><%= daily_report.text %></td>
+        <td><%= daily_report.ts %></td>
+        <td><%= daily_report.slack_user_id %></td>
+        <td><%= daily_report.team %></td>
+        <td><%= link_to 'Show', daily_report %></td>
+        <td><%= link_to 'Edit', edit_daily_report_path(daily_report) %></td>
+        <td><%= link_to 'Destroy', daily_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Daily Report', new_daily_report_path %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @daily_report.id %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @daily_report.text %>
+</p>
+
+<p>
+  <strong>Ts:</strong>
+  <%= @daily_report.ts %>
+</p>
+
+<p>
+  <strong>Slack user:</strong>
+  <%= @daily_report.slack_user_id %>
+</p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @daily_report.team %>
+</p>
+
+<%= link_to 'Edit', edit_daily_report_path(@daily_report) %> |
+<%= link_to 'Back', daily_reports_path %>

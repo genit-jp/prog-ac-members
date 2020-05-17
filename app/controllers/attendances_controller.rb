@@ -53,6 +53,8 @@ class AttendancesController < InheritedResources::Base
       str_nextdate = nextdate.strftime("%m月%d日(#{%w(日 月 火 水 木 金 土)[nextdate.wday]})")
       notifier.ping "*今日は金曜日です。#{str_nextdate}までの学習予定を(仮でOK)入力してください。*"
     end
+    render :text => 'ok', :status => 200
+
   end
 
   private

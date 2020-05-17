@@ -5,7 +5,7 @@ ActiveAdmin.register Profile do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :user_id, :name, :image, :belong_to, :message, :description, :twitter, :facebook, :web, :github, :place
+  permit_params :slack_user_id
   #
   # or
   #
