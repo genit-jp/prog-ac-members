@@ -5,4 +5,10 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:is_active])
   end
+  def require_admin
+    user = AdminUser.find_by(:email => current_user.email)
+    if user.blank?
+      redirect_to root_path
+    end
+  end
 end

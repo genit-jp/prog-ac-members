@@ -1,0 +1,7 @@
+<td style="<%= MembersHelper.empty_background_color(val) %>">
+  <% if key.present? and val.present? then %>
+    <%= val[key] %>
+  <% else %>
+    <%= val %>
+  <% end %>
+</td>

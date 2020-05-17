@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+<p><%= @fromdate %>〜</p>
+<form method="get" action="<% members_path %>">
+<select class="form-control" id="day" name="day" onchange="submit(this.form)">
+  <% for day in [2,7,14,30,60] do %>
+    <option value="<%= day %>" <%= day == @day ? 'selected' : ''%>><%= "過去#{day}日" %></option>
+  <% end %>
+</select>
+
+<table class="table">
+  <tr>
+    <th>名前</th>
+    <th>SlackID</th>
+    <th>最終ログイン</th>
+    <th>勉強予定</th>
+    <th>1on1予約</th>
+    <th>日報</th>
+  </tr>
+  <% for profile in @profiles do %>
+    <tr>
+      <%= render 'td', val: profile.name, key: '' %>
+      <%= render 'td', val: profile.slack_user_id, key: '' %>
+      <%= render 'td', val: profile.user.last_sign_in_at, key: '' %>
+      <%= render 'td', val: @attendances.find {|att| att.user_id == profile.user.id}, key: 'date' %>
+      <%= render 'td', val: @bookings.find {|bk| bk.user_id == profile.user.id}, key: 'date' %>
+      <%= render 'td', val: @daily_reports.find {|dr| dr.slack_user_id == profile.slack_user_id}, key: 'ts' %>
+    </tr>
+  <% end %>
+</table>

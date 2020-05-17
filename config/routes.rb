@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'home/index'
+  resources :members, only: [:index]
   resources :articles
   resources :bookings
   resources :attendances do
