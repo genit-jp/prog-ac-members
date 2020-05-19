@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     @date = Date.current
     @profiles = Profile.joins(:user).where("is_active = ?", true)
     @articles = Article.where(:is_active => true).order(priority: "DESC")
-    @attendances = Attendance.where("cast(date as text) LIKE ?", @date)
+    @attendances = Attendance.where("date <= ? and date <= ?", @date.ago(7.days), @date)
     @timelines = []
     for att in @attendances do
       if att.user.profile.present? then
