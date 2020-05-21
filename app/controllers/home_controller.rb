@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, except:  []
+  before_action :authenticate_user!, :require_permitted_user, except:  []
   def index
     @date = Date.current
     @profiles = Profile.joins(:user).where("is_active = ?", true)

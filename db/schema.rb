@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_17_073743) do
+ActiveRecord::Schema.define(version: 2020_05_21_023712) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -78,6 +78,12 @@ ActiveRecord::Schema.define(version: 2020_05_17_073743) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "permitted_users", force: :cascade do |t|
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id"
     t.string "name"
@@ -88,9 +94,9 @@ ActiveRecord::Schema.define(version: 2020_05_17_073743) do
     t.string "goal"
     t.string "message"
     t.string "description"
+    t.string "slack_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slack_user_id"
   end
 
 # Could not dump table "users" because of following StandardError

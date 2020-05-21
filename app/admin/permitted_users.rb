@@ -1,21 +1,16 @@
-ActiveAdmin.register Profile do
+ActiveAdmin.register PermittedUser do
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :slack_user_id
-  form do |f|
-    f.inputs do
-      f.input :slack_user_id
-    end
-    f.actions
-  end  #
+  permit_params :email
+  #
   # or
   #
   # permit_params do
-  #   permitted = [:user_id, :name, :image, :belong_to, :message, :description, :twitter, :facebook, :web, :github, :place]
+  #   permitted = [:email]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

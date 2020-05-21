@@ -18,6 +18,12 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
+      <% if notice.present? %>
+        <p id="notice" class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p id="alert" class="alert alert-danger"><%= alert %></p>
+      <% end %>
       <%= yield %>
     </div>
     <nav class="navbar navbar-light bg-light">

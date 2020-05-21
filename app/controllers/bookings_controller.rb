@@ -1,5 +1,5 @@
 class BookingsController < InheritedResources::Base
-  before_action :authenticate_user!, except:  []
+  before_action :authenticate_user!, :require_permitted_user, except:  []
   def create
     booking = Booking.find_or_initialize_by(:date => Date.parse(params[:date]), :start_time => params[:start_time])
     notice = '予約を受け付けました'

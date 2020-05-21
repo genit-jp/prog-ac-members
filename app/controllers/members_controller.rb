@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_action :authenticate_user!, :require_admin, except:  []
+  before_action :authenticate_user!, :require_permitted_user, :require_admin, except:  []
   def index
     day = params[:day] ? params[:day] : 14
     @day = day.to_i

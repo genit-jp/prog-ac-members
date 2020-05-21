@@ -1,7 +1,7 @@
 require "net/http"
 require "json"
 class DailyReportsController < InheritedResources::Base
-  before_action :authenticate_user!, except:  [:slack]
+  before_action :authenticate_user!, :require_permitted_user, except:  [:slack]
   protect_from_forgery except: [:slack]
 
   def slack

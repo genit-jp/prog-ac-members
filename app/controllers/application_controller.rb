@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+  def require_permitted_user
+    user = PermittedUser.find_by(:email => current_user.email)
+    if user.blank?
+      sign_out current_user
+      redirect_to sign_in_path, alert: 'ユーザー登録されていません'
+    end
+  end
 end

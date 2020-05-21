@@ -1,5 +1,5 @@
 class ProfilesController < InheritedResources::Base
-  before_action :authenticate_user!, except:  []
+  before_action :authenticate_user!, :require_permitted_user, except:  []
   def index
     @profiles = Profile.joins(:user).where("is_active = ?", true)
   end
