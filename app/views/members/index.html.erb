@@ -11,7 +11,6 @@
   <tr>
     <th>名前</th>
     <th>SlackID</th>
-    <th>最終ログイン</th>
     <th>勉強予定</th>
     <th>1on1予約</th>
     <th>日報</th>
@@ -20,7 +19,6 @@
     <tr>
       <%= render 'td', val: profile.name, key: '' %>
       <%= render 'td', val: profile.slack_user_id, key: '' %>
-      <%= render 'td', val: profile.user.last_sign_in_at, key: '' %>
       <%= render 'td', val: @attendances.find {|att| att.user_id == profile.user.id}, key: 'date' %>
       <%= render 'td', val: @bookings.find {|bk| bk.user_id == profile.user.id}, key: 'date' %>
       <%= render 'td', val: @daily_reports.find {|dr| dr.slack_user_id == profile.slack_user_id}, key: 'ts' %>
