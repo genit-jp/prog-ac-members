@@ -6,6 +6,13 @@ ActiveAdmin.register User do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :is_active
+  form do |f|
+    f.inputs do
+      f.label :is_active
+      f.check_box :is_active
+    end
+    f.actions
+  end  #
   #
   # or
   #
