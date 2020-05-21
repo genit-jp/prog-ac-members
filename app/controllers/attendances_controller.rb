@@ -21,6 +21,10 @@ class AttendancesController < InheritedResources::Base
     attendance.is_remote = params[:is_remote]
     attendance.starts_at = DateTime.parse("#{params[:date]}T#{params[:start_time]}+09:00")
     attendance.ends_at = DateTime.parse("#{params[:date]}T#{params[:end_time]}+09:00")
+    if attendance.starts_at.to_i > attendance.ends_at.to_i then
+      attendance.ends_at = attendance.starts_at
+      attendance.end_time = attendance.start_time
+    end
     attendance.save
     redirect_to attendances_path(:date => params[:date])
   end
