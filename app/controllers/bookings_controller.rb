@@ -12,7 +12,7 @@ class BookingsController < InheritedResources::Base
       booking.title = params[:title]
       booking.save
       client = Slack::Web::Client.new({token: Rails.application.credentials.slack[:admin_token]})
-      client.chat_postMessage(channel: 'C014281L42H', text: "新規登録：#{current_user.profile.name}：#{booking.date}/#{booking.start_time}〜")
+      client.chat_postMessage(channel: Rails.application.credentials.slack[:one_on_one_channel], text: "新規登録：#{current_user.profile.name}：#{booking.date}/#{booking.start_time}〜")
     end
     redirect_to attendances_path(:date => params[:date]), notice: notice
   end
@@ -25,8 +25,8 @@ class BookingsController < InheritedResources::Base
     logger.debug bookings.length
     for booking in bookings do
       message = "#{booking.user.profile.name}さん\n#{booking.date}/#{booking.start_time}〜 1on1の予定が入っています"
-      client.chat_postMessage(channel: 'C014281L42H', text: message)
-      client.chat_postMessage(channel: 'U010H9L1LR0', text: message)
+      client.chat_postMessage(channel: Rails.application.credentials.slack[:one_on_one_channel], text: message)
+      client.chat_postMessage(channel: Rails.application.credentials.slack[:admin_user_channel], text: message)
       slack_user_id = booking.user.profile.slack_user_id
       if slack_user_id.present?
         client.chat_postMessage(channel: slack_user_id, text: message)

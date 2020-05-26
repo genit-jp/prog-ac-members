@@ -40,7 +40,7 @@ class AttendancesController < InheritedResources::Base
     attendances = Attendance.where("cast(date as text) LIKE ?", date)
     notifier = Slack::Notifier.new(
         Rails.application.credentials.slack[:webhook_url],
-        channel: '#スケジュール',
+        channel: Rails.application.credentials.slack[:schedule_channel],
         username: "メンバーズサイト"
     )
     strdate = date.strftime("%m月%d日(#{%w(日 月 火 水 木 金 土)[date.wday]})")
