@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   get 'home/index'
   resources :members, only: [:index]
   resources :articles
-  resources :bookings
+  resources :bookings do
+    collection do
+      post 'slack'
+    end
+  end
   resources :attendances do
     collection do
       post 'slack'
