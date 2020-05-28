@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'home/index'
+  post 'twitter/fav' => 'twitter#fav'
   resources :members, only: [:index]
   resources :articles
   resources :bookings do

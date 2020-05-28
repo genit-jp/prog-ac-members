@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
   def require_permitted_user
     user = PermittedUser.find_by(:email => current_user.email)
-    if user.blank?
+    if user.blank? or current_user.is_active.blank?
       sign_out current_user
       redirect_to sign_in_path, alert: 'ユーザー登録されていません'
     end
