@@ -21,9 +21,9 @@
       <%= render 'td', val: profile.name, key: '' %>
       <td><%= link_to profile.user.level ? "#{profile.user.level.level} - #{profile.user.level.start_date.year}/#{profile.user.level.start_date.month}〜" : '未設定', new_level_path(user_id: profile.user.id)%></td>
       <%= render 'td', val: profile.slack_user_id, key: '' %>
-      <%= render 'td', val: @attendances.select {|att| att.user_id == profile.user.id}.sort {|a,b| a.starts_at <=> b.starts_at}.last, key: 'date' %>
+      <%= render 'td', val: @attendances.select {|att| att.user_id == profile.user.id}.sort {|a,b| a.date <=> b.date}.last, key: 'date' %>
       <%= render 'td', val: @bookings.select {|bk| bk.user_id == profile.user.id}.sort {|a,b| a.date <=> b.date}.last, key: 'date' %>
-      <%= render 'td', val: @daily_reports.select {|dr| dr.slack_user_id == profile.slack_user_id}.sort {|a,b| a.date <=> b.date}.last, key: 'ts' %>
+      <%= render 'td', val: @daily_reports.select {|dr| dr.slack_user_id == profile.slack_user_id}.sort {|a,b| a.ts <=> b.ts}.last, key: 'ts' %>
     </tr>
   <% end %>
 </table>
