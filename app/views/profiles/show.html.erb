@@ -3,6 +3,7 @@
     <img src="<%= @profile.icon_image %>" style="max-width:600px;max-height:600px;">
     <p class="card-text"><%= @profile.name_kana %></p>
     <h1 class="card-title"><%= @profile.name %></h1>
+    <h5><%= @profile.user.level ? "Lv.#{@profile.user.level.level}" : '' %></h5>
     <p class="card-title"><%= @profile.title %></p>
     <p class="card-text"><%= @profile.goal %></p>
     <p class="card-text"><%= @profile.message %></p>

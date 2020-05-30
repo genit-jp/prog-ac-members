@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @level.user_id %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @level.start_date %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @level.level %>
+</p>
+
+<%= link_to 'Edit', edit_level_path(@level) %> |
+<%= link_to 'メンバー一覧へ', members_path %>

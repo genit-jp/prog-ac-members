@@ -1,0 +1,32 @@
+<%= form_with(model: level, local: true) do |form| %>
+  <% if level.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(level.errors.count, "error") %> prohibited this level from being saved:</h2>
+
+      <ul>
+        <% level.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_select :start_date, :order => [ :year, :month ], :use_two_digit_numbers => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :level %>
+    <%= form.number_field :level %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

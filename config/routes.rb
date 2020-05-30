@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :levels
   get 'home/index'
   post 'twitter/fav' => 'twitter#fav'
   resources :members, only: [:index]
