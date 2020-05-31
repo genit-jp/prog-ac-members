@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :levels
   get 'home/index'
-  post 'twitter/fav' => 'twitter#fav'
+  post 'twitter/fav_prog_ac' => 'twitter#fav_prog_ac'
+  post 'twitter/fav_genit' => 'twitter#fav_genit'
   resources :members, only: [:index]
   resources :articles
   resources :bookings do
