@@ -5,7 +5,7 @@ class AttendancesController < InheritedResources::Base
     @date = params[:date] ? Date.parse(params[:date]) : Date.current
     @bookings = Booking.where("cast(date as text) LIKE ?", @date)
     @timelines = []
-    @attendances = Attendance.where("cast(date as text) LIKE ?", @date).includes(:user).includes(:profile)
+    @attendances = Attendance.where("cast(date as text) LIKE ?", @date).includes(:user)
     @attendance = @attendances.find_by(:user_id => current_user.id)
     for att in @attendances do
       if att.user.profile.present? then
