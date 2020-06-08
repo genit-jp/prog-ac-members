@@ -7,8 +7,9 @@
 
 <%= @answer.code %>
 <% if @answer.user_id == current_user.id then %>
-  <%= link_to '編集する', edit_answer_path(@answer) %>
+  <%= link_to '編集する', edit_answer_path(@answer), :class => 'btn btn-light' %>
 <% end %>
+<%= link_to '戻る', answers_path, :class => 'btn btn-light' %>
 
 <hr />
 
@@ -30,7 +31,7 @@
           <%= hidden_field_tag :answer_id, @answer.id %>
           <%= hidden_field_tag :user_id, current_user.id %>
           <%= f.rich_text_area :comment, label: 'コメント' %>
-          <%= f.check_box :lgtm, label: "LGTM" %>
+          <%= f.check_box :lgtm, label: "いいと思います" %>
         </div>
         <div class="modal-footer">
           <%= f.submit '更新', :class => 'btn btn-primary' %>
@@ -47,7 +48,7 @@
         <span><%= review.user.profile.name %>さんのレビュー</span>
         <span class="card-text"><%= review.comment %></span>
         <% if review.lgtm then %>
-          <p class="card-text">LGTM:👍</p>
+          <p class="card-text">👍</p>
         <% end %>
       </div>
     </div>

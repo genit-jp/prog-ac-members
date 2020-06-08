@@ -1,52 +1,52 @@
 <p id="notice"><%= notice %></p>
 
 <h1>課題</h1>
-
+<p>コードには分かりやすいようにコメントを記載するようにしよう</p>
 <table class="table">
   <thead>
     <tr>
       <th>レベル</th>
       <th>問題</th>
-      <th>編集</th>
-      <th></th>
+      <th>解答</th>
     </tr>
   </thead>
 
   <tbody>
     <% @questions.each do |question| %>
-      <tr>
-        <td><%= "#{question.stage}-#{question.level}" %></td>
-        <td><a href="#" data-toggle="modal" data-target="#modal<%= question.id %>"><%= question.title %></a></td>
-        <div class="modal" id="modal<%= question.id %>" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="dialog-title"><%= question.title %></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+      <% if AnswersHelper.get_current_level(@questions, @answers) >= question.level then %>
+        <tr>
+          <td><%= "#{question.stage}-#{question.level}" %></td>
+          <td><a href="#" data-toggle="modal" data-target="#modal<%= question.id %>"><%= question.title %></a></td>
+          <div class="modal" id="modal<%= question.id %>" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="dialog-title"><%= question.title %></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id="dialog-body"><%= question.question %></div>
+                <% if question.link then %>
+                <div class="modal-footer">
+                  <%= link_to question.link, question.link, :target => :_blank %>
+                </div>
+                <% end %>
               </div>
-              <div class="modal-body" id="dialog-body"><%= question.question %></div>
-              <% if question.link then %>
-              <div class="modal-footer">
-                <%= link_to question.link, question.link, :target => :_blank %>
-              </div>
-              <% end %>
             </div>
           </div>
-        </div>
 
-        <td><%= link_to '編集', edit_question_path(question), target: :_blank %></td>
-        <% answer = @answers.select{ |answer| question.id == answer.question_id }.first %>
-        <% if answer %>
-          <td>
-            <%= link_to '解答を見る', answer_path(answer) %>
-            <span><%= "👍" * answer.code_reviews.filter{|review| review.lgtm }.length %></span>
-          </td>
-        <% else %>
-          <td><%= link_to '解答する', new_answer_path(:question_id => question.id) %></td>
-        <% end %>
-      </tr>
-  <% end %>
+          <% answer = @answers.select{ |answer| question.id == answer.question_id }.first %>
+          <% if answer %>
+            <td>
+              <%= link_to '解答を見る', answer_path(answer) %>
+              <span><%= "👍" * answer.code_reviews.filter{|review| review.lgtm }.length %></span>
+            </td>
+          <% elsif @user_id === current_user.id %>
+            <td><%= link_to '解答する', new_answer_path(:question_id => question.id) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
   </tbody>
 </table>
