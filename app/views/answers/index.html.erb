@@ -27,6 +27,11 @@
                 </button>
               </div>
               <div class="modal-body" id="dialog-body"><%= question.question %></div>
+              <% if question.link then %>
+              <div class="modal-footer">
+                <%= link_to question.link, question.link, :target => :_blank %>
+              </div>
+              <% end %>
             </div>
           </div>
         </div>

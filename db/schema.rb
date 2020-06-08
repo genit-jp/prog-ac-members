@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_08_003831) do
+ActiveRecord::Schema.define(version: 2020_06_08_061027) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 2020_06_08_003831) do
     t.boolean "availabled"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "link"
   end
 
 # Could not dump table "users" because of following StandardError
