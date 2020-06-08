@@ -15,7 +15,7 @@ class QuestionsController < InheritedResources::Base
   private
 
     def question_params
-      params.require(:question).permit(:stage, :level, :index, :title, :question, :link)
+      params.require(:question).permit(:stage, :level, :index, :title, :question, :link, :availabled)
     end
 
 end
