@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :attendances
   has_many :bookings
   has_one :level
+  has_many :answers
 
   def is_drop_out
     if self.bookings.empty?

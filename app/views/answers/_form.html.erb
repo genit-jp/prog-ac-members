@@ -1,0 +1,28 @@
+
+<h3><%= @question.title %>(<%= "#{@question.stage}-#{@question.level}" %>)</h3>
+<p><%= @question.question %></p>
+<hr />
+
+<h3>解答</h3>
+<%= form_with(model: @answer, local: true) do |form| %>
+  <% if answer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
+
+      <ul>
+        <% answer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :user_id %>
+  <%= form.hidden_field :question_id %>
+
+  <%= form.rich_text_area :code %>
+
+  <div class="actions">
+    <%= form.submit '解答する', :class => "btn btn-primary" %>
+  </div>
+<% end %>

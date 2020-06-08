@@ -52,7 +52,7 @@
         <% time = "#{i}:00" %>
         <div style="border-left: solid 5px #7db4e6; margin-bottom: 1em; padding-left: 6px;" class="col-2 col-sm-3 col-lg-2"><%= "#{time}〜" %></div>
         <div class="col-4 col-sm-3 col-lg-2">
-          <% booking = @bookings.find_by(:start_time => time) %>
+          <% booking = @bookings.select { |booking| booking.start_time == time }.first %>
           <% if booking then %>
             <%= booking.title.present? ? booking.title : booking.user.profile.name %>
           <% else %>

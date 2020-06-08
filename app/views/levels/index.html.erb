@@ -7,7 +7,7 @@
     <tr>
       <th>User</th>
       <th>Start date</th>
-      <th>Level</th>
+      <th>STAGE-LEVEL</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,7 +17,7 @@
       <tr>
         <td><%= level.user.profile.name %></td>
         <td><%= level.start_date %></td>
-        <td><%= level.level %></td>
+        <td><%= "#{level.stage}-#{level.level}" %></td>
         <td><%= link_to 'Show', level %></td>
         <td><%= link_to 'Edit', edit_level_path(level) %></td>
         <td><%= link_to 'Destroy', level, method: :delete, data: { confirm: 'Are you sure?' } %></td>

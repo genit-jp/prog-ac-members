@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :code_reviews
+  resources :answers
+  resources :questions do
+    collection do
+      post 'api_post'
+    end
+  end
   resources :levels
   get 'home/index'
   post 'twitter/fav_prog_ac' => 'twitter#fav_prog_ac'

@@ -1,5 +1,12 @@
 {
   "name": "kobe-pg",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/actiontext": "^6.0.3",
+    "@rails/webpacker": "https://github.com/rails/webpacker.git",
+    "trix": "^1.2.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  }
 }

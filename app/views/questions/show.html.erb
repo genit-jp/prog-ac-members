@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<h3><%= @question.title %>(<%= "#{@question.stage}-#{@question.level}" %>)</h3>
+
+<%= @question.question %>
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Back', questions_path %>

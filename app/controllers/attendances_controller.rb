@@ -3,10 +3,10 @@ class AttendancesController < InheritedResources::Base
   protect_from_forgery except: [:slack]
   def index
     @date = params[:date] ? Date.parse(params[:date]) : Date.current
-    @attendances = Attendance.where("cast(date as text) LIKE ?", @date)
-    @attendance = @attendances.find_by(:user_id => current_user.id)
-    @timelines = []
     @bookings = Booking.where("cast(date as text) LIKE ?", @date)
+    @timelines = []
+    @attendances = Attendance.where("cast(date as text) LIKE ?", @date).includes(:user).includes(:profile)
+    @attendance = @attendances.find_by(:user_id => current_user.id)
     for att in @attendances do
       if att.user.profile.present? then
         @timelines.push ["#{att.user.profile.name}#{att.is_remote ? '(リ)' : ''}", att.starts_at, att.ends_at]

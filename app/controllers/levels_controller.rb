@@ -8,7 +8,7 @@ class LevelsController < InheritedResources::Base
   private
 
     def level_params
-      params.require(:level).permit(:user_id, :start_date, :level)
+      params.require(:level).permit(:user_id, :start_date, :level, :stage)
     end
 
 end

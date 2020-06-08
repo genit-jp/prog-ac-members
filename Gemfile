@@ -47,7 +47,9 @@ gem "chartkick"
 gem 'slack-notifier'
 gem 'slack-ruby-client'
 gem 'twitter'
-
+gem 'actiontext'
+gem 'image_processing'
+gem 'webpacker'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

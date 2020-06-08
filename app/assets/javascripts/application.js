@@ -18,4 +18,6 @@
 //= require bootstrap-sprockets
 //= require chartkick
 //= require Chart.bundle
+//= require("trix")
+//= require("@rails/actiontext")
 //= require_tree ./main

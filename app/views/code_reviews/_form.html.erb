@@ -1,0 +1,32 @@
+<%= form_with(model: code_review, local: true) do |form| %>
+  <% if code_review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(code_review.errors.count, "error") %> prohibited this code_review from being saved:</h2>
+
+      <ul>
+        <% code_review.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :answer_id %>
+    <%= form.number_field :answer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lgtm %>
+    <%= form.check_box :lgtm %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

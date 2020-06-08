@@ -1,0 +1,56 @@
+<h3><%= @question.title %>(<%= "#{@question.stage}-#{@question.level}" %>)</h3>
+<p><%= @question.question %></p>
+
+<hr />
+
+<h3><%= @answer.user.profile.name %>さんの解答</h3>
+
+<%= @answer.code %>
+<% if @answer.user_id == current_user.id then %>
+  <%= link_to '編集する', edit_answer_path(@answer) %>
+<% end %>
+
+<hr />
+
+<h3>レビュー</h3>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal1">追加</button>
+<div class="modal" id="modal1" tabindex="-1"
+     role="dialog" aria-labelledby="label1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="label1">レビューを入力する</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= bootstrap_form_tag url: '/code_reviews' do |f| %>
+        <div class="modal-body">
+          <%= hidden_field_tag :answer_id, @answer.id %>
+          <%= hidden_field_tag :user_id, current_user.id %>
+          <%= f.rich_text_area :comment, label: 'コメント' %>
+          <%= f.check_box :lgtm, label: "LGTM" %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit '更新', :class => 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% for review in @answer.code_reviews do %>
+  <div class="cols-12">
+    <div class="card">
+      <div class="card-body">
+        <span><%= review.user.profile.name %>さんのレビュー</span>
+        <span class="card-text"><%= review.comment %></span>
+        <% if review.lgtm then %>
+          <p class="card-text">LGTM:👍</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+<% end %>
