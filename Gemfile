@@ -51,6 +51,7 @@ gem 'actiontext'
 gem 'image_processing'
 gem 'webpacker'
 gem 'prism-rails'
+gem 'trix'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
