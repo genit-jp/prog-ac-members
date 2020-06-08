@@ -39,7 +39,7 @@
           <% answer = @answers.select{ |answer| question.id == answer.question_id }.first %>
           <% if answer %>
             <td>
-              <%= link_to '解答を見る', answer_path(answer) %>
+              <%= link_to '解答を見る', answer_path(answer), data: {"turbolinks" => false} %>
               <span><%= "👍" * answer.code_reviews.filter{|review| review.lgtm }.length %></span>
             </td>
           <% elsif @user_id === current_user.id %>
