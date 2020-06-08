@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <td><%= link_to '編集', question_path(question), target: :_blank %></td>
+        <td><%= link_to '編集', edit_question_path(question), target: :_blank %></td>
         <% answer = @answers.select{ |answer| question.id == answer.question_id }.first %>
         <% if answer %>
           <td>
