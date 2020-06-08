@@ -3,7 +3,7 @@ class AnswersController < InheritedResources::Base
 
   def index
     @user_id = params[:user_id] || current_user.id
-    @answers = Answer.includes(:code_reviews).where(:user_id => @user_id).with_rich_text_code_and_embeds
+    @answers = Answer.includes(:code_reviews).where(:user_id => @user_id)
     @questions = Question.where(:availabled => true).order(:level).order(:index).with_rich_text_question_and_embeds
   end
   def new

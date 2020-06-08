@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_08_061027) do
+ActiveRecord::Schema.define(version: 2020_06_08_091052) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2020_06_08_061027) do
     t.integer "question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "code"
   end
 
   create_table "articles", force: :cascade do |t|

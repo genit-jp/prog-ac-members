@@ -5,7 +5,9 @@
 
 <h3><%= @answer.user.profile.name %>さんの解答</h3>
 
-<%= @answer.code %>
+<pre>
+<code class="language-javascript"><%= @answer.code %></code>
+</pre>
 <% if @answer.user_id == current_user.id then %>
   <%= link_to '編集する', edit_answer_path(@answer), :class => 'btn btn-light' %>
 <% end %>

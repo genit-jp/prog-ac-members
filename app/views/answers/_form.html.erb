@@ -4,7 +4,7 @@
 <hr />
 
 <h3>解答</h3>
-<%= form_with(model: @answer, local: true) do |form| %>
+<%= bootstrap_form_for(@answer) do |form| %>
   <% if answer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
@@ -20,7 +20,7 @@
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :question_id %>
 
-  <%= form.rich_text_area :code %>
+  <%= form.text_area :code, rows: 15, :label => 'コード'%>
 
   <div class="actions">
     <%= form.submit '解答する', :class => "btn btn-primary" %>

@@ -14,6 +14,7 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery3
+//= require prism
 //= require popper
 //= require bootstrap-sprockets
 //= require chartkick
