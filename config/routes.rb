@@ -6,7 +6,11 @@ Rails.application.routes.draw do
       post 'api_post'
     end
   end
-  resources :levels
+  resources :levels do
+    collection do
+      post 'check'
+    end
+  end
   get 'home/index'
   post 'twitter/fav_prog_ac' => 'twitter#fav_prog_ac'
   post 'twitter/fav_genit' => 'twitter#fav_genit'

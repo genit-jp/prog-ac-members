@@ -33,7 +33,18 @@ class AnswersController < InheritedResources::Base
     name = answer.user.profile.name
     title = answer.question.title
     url = answer_url(answer)
-    message = "レビューお願いします「#{title}」by #{name}\n#{url}"
+    users = AnswersHelper.get_reviewers(answer.question)
+    mention = ''
+    logger.debug users
+    for user in users do
+      slack_user_id = user.profile.slack_user_id
+      if slack_user_id then
+        mention += "<@#{slack_user_id}>"
+      end
+    end
+
+    message = "#{mention}\nレビューお願いします「#{title}」by #{name}\n#{url}"
+    logger.debug message
     client.chat_postMessage(channel: Rails.application.credentials.slack[:code_review_channel], text: message)
   end
 

@@ -1,6 +1,6 @@
 class CodeReviewsController < InheritedResources::Base
   def create
-    booking = CodeReview.create(:user_id => params[:user_id], :answer_id => params[:answer_id], :lgtm => params[:lgtm], :comment => params[:comment])
+    review = CodeReview.create(:user_id => params[:user_id], :answer_id => params[:answer_id], :lgtm => params[:lgtm], :comment => params[:comment])
     redirect_to answer_path(params[:answer_id]), notice: notice
   end
   private
