@@ -7,13 +7,12 @@ class QuestionsController < InheritedResources::Base
   end
 
   def api_post
-    @question = Question.find_or_initialize_by(:stage => params[:stage].to_i, :level => params[:level].to_i, :index => params[:index].to_i)
-    @question.title = params[:title]
-    @question.availabled = true
-    @question.question = params[:question].gsub(/\R/, '<br/>')
-    @question.save
+    @questions = Question.all
+    for question in questions do
+      question.level = question.level + 1
+      question.save
+    end
     render json: {message: 'ok'}, :status => 200
-
   end
 
   private

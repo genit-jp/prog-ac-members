@@ -4,7 +4,7 @@ module AnswersHelper
     loop = true
     while loop
       ret = ret + 1
-      qs = questions.select{|q| q.level == ret}
+      qs = questions.select{|q| q.level == ret and q.availabled}
       for q in qs do
         as = answers.select{|a| a.question_id == q.id}
         if as.empty? then
@@ -21,7 +21,7 @@ module AnswersHelper
     loop = true
     while loop
       ret = ret + 1
-      qs = questions.select{|q| q.level == ret}
+      qs = questions.select{|q| q.level == ret and q.availabled }
       for q in qs do
         as = answers.select{|a|
           a.question_id == q.id and a.code_reviews.select{|c| c.lgtm }.length >= 2
