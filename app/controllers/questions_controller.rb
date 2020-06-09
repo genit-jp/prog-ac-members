@@ -7,7 +7,7 @@ class QuestionsController < InheritedResources::Base
   end
 
   def api_post
-    @questions = Question.all
+    questions = Question.all
     for question in questions do
       question.level = question.level + 1
       question.save
