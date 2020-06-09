@@ -2,6 +2,10 @@ class QuestionsController < InheritedResources::Base
   before_action :authenticate_user!, :require_permitted_user, :require_admin, except: [:api_post]
   protect_from_forgery except: [:api_post]
 
+  def index
+    @questions = Question.all.order(:stage).order(:level).order(:index)
+  end
+
   def api_post
     @question = Question.find_or_initialize_by(:stage => params[:stage].to_i, :level => params[:level].to_i, :index => params[:index].to_i)
     @question.title = params[:title]
