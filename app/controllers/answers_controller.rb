@@ -5,6 +5,7 @@ class AnswersController < InheritedResources::Base
     @user_id = params[:user_id] || current_user.id
     @answers = Answer.includes(:code_reviews).where(:user_id => @user_id)
     @questions = Question.where(:availabled => true).order(:level).order(:index).with_rich_text_question_and_embeds
+    raise "Invalid Error"
   end
   def new
     @answer = Answer.find_or_initialize_by(:user_id => current_user.id, :question_id => params[:question_id])
