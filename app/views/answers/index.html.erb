@@ -37,13 +37,17 @@
           </div>
 
           <% answer = @answers.select{ |answer| question.id == answer.question_id }.first %>
-          <% if answer %>
-            <td>
-              <%= link_to '解答を見る', answer_path(answer), data: {"turbolinks" => false} %>
-              <span><%= "👍" * answer.code_reviews.filter{|review| review.lgtm }.length %></span>
-            </td>
-          <% elsif @user_id === current_user.id %>
-            <td><%= link_to '解答する', new_answer_path(:question_id => question.id), :class => 'btn btn-primary', :style => "color:white !important;" %></td>
+          <% if false %>
+            <% if answer %>
+              <td>
+                <%= link_to '解答を見る', answer_path(answer), data: {"turbolinks" => false} %>
+                <span><%= "👍" * answer.code_reviews.filter{|review| review.lgtm }.length %></span>
+              </td>
+            <% elsif @user_id === current_user.id %>
+              <td><%= link_to '解答する', new_answer_path(:question_id => question.id), :class => 'btn btn-primary', :style => "color:white !important;" %></td>
+            <% end %>
+          <% else %>
+            <td>調整中</td>
           <% end %>
         </tr>
       <% end %>
