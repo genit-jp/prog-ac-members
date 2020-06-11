@@ -9,7 +9,7 @@ class ProfilesController < InheritedResources::Base
   private
 
     def profile_params
-      params.require(:profile).permit(:user_id, :name, :name_kana, :icon_image, :pr_image, :goal, :title, :message, :description, :slack_user_id)
+      params.require(:profile).permit(:user_id, :name, :name_kana, :icon_image, :pr_image, :goal, :title, :message, :description, :slack_user_id, :github_id)
     end
 
 end

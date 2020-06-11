@@ -5,10 +5,11 @@ ActiveAdmin.register Profile do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :slack_user_id
+  permit_params :slack_user_id, :github_id
   form do |f|
     f.inputs do
       f.input :slack_user_id
+      f.input :github_id
     end
     f.actions
   end  #
