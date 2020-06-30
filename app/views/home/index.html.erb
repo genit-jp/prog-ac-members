@@ -10,7 +10,7 @@
 </script>
 
 
-<% if current_user.is_drop_out %>
+<% if current_user.is_drop_out && false %>
   <div class="alert alert-warning" role="alert">
     ２週間以上1on1を実施していません。<a href="<%= attendances_path %>">1on1予約</a>から申し込みをしてください。<br />
     <small>
@@ -79,7 +79,7 @@
       <a href="<%= profile_path(profile) %>">
         <div class="card">
           <div class="card-body">
-            <p style="float:right;"><%= profile.user.level ? "#{profile.user.level.stage}-#{profile.user.level.level}" : '' %></p>
+            <p style="float:right;"><%= profile.user.level ? "#{profile.user.level.stage}" : '' %></p>
             <h5 class="card-title"><%= profile.name %></h5>
             <img src="<%= profile.icon_image %>" style="max-width:64px;max-height:64px;float:left;margin-right:4px;">
             <p class="card-text"><%= profile.goal %></p>
