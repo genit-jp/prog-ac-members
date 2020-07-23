@@ -45,24 +45,29 @@
 
 <hr />
 <div class="container">
-  <span style="font-size:1.75rem; font-weight: 500;">1on1 予約</span>
+  <h3>1on1 予約</h3>
+  <ul>
+    <li>平日14:00〜15:00は勉強会です</li>
+    <li>土日の予約は事前に堀江までSlackで相談してください</li>
+  </ul>
   <div class="container-fluid">
     <div class="row">
       <% for i in 10..21 do %>
-        <% time = "#{i}:00" %>
-        <div style="border-left: solid 5px #7db4e6; margin-bottom: 1em; padding-left: 6px;" class="col-2 col-sm-3 col-lg-2"><%= "#{time}〜" %></div>
-        <div class="col-4 col-sm-3 col-lg-2">
-          <% booking = @bookings.select { |booking| booking.start_time == time }.first %>
-          <% if booking then %>
-            <%= booking.title.present? ? booking.title : booking.user.profile.name %>
-          <% else %>
-            <%= form_tag('/bookings', method: :post) do %>
-              <%= hidden_field_tag 'date', @date %>
-              <%= hidden_field_tag 'start_time', time %>
-              <%= submit_tag "予約", class: "btn btn-sm btn-outline-secondary", data: { confirm: @date.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[@date.wday]}) #{time}〜 予約をしますか？") } %>
+        <% for j in 0..1 do %>
+          <% time = "#{i}:#{j==0 ? '00' : '30'}" %>
+          <div class="col-4 col-sm-3 col-lg-2">
+            <% booking = @bookings.select { |booking| booking.start_time == time }.first %>
+            <% if booking then %>
+              <%= booking.title.present? ? booking.title : booking.user.profile.name %>
+            <% else %>
+              <%= form_tag('/bookings', method: :post) do %>
+                <%= hidden_field_tag 'date', @date %>
+                <%= hidden_field_tag 'start_time', time %>
+                <%= submit_tag "#{time}〜", class: "btn btn-sm btn-outline-secondary", data: { confirm: @date.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[@date.wday]}) #{time}〜 予約をしますか？") } %>
+              <% end %>
             <% end %>
+          </div>
         <% end %>
-        </div>
       <% end %>
     </div>
   </div>

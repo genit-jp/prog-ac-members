@@ -19,8 +19,7 @@ class BookingsController < InheritedResources::Base
 
   def slack
     now = Time.current
-    logger.debug "#{now.hour+1}:00"
-    bookings = Booking.where(:date => Date.current, :start_time => "#{now.hour+1}:00")
+    bookings = Booking.where("date = ? AND (start_time = ? OR start_time = ?)", Date.current, "#{now.hour+1}:00", "#{now.hour+1}:30")
     client = Slack::Web::Client.new({token: Rails.application.credentials.slack[:bot_token]})
     logger.debug bookings.length
     for booking in bookings do
