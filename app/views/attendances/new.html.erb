@@ -1,5 +1,70 @@
-<h1>New Attendance</h1>
+<script type="text/javascript">
+    function onSelectChange(elm,key){
+        var idx = elm.selectedIndex;
+        var value = elm.options[idx].value;
+        var sid
+        <% for i in 0..14 do %>
+          <% date = Date.current + i %>
+          <%= "sid = \"#{date}\" + \":\" + key;".html_safe %>
+          <%= "document.getElementById(sid).value = value" %>
+        <% end %>
+    }
+</script>
 
-<%= render 'form', attendance: @attendance %>
+<div class="container">
+  <h2>勉強予定一括入力</h2>
+  <ul>
+    <li>更新ボタンを押下した日にちのみ保存されます。</li>
+    <li>リロードして削除ボタンが表示されたら設定できています。</li>
+  </ul>
+  <h5>一括設定</h5>
+  <div class="row">
+    <div class="col-6">
+      <p>開始時間</p>
+      <%= select_tag :start_time, options_for_select(AttendancesHelper.makeTimeArray(), nil), label: true, class: "form-control", :onchange => "onSelectChange(this,'start_time')".html_safe %>
+    </div>
+    <div class="col-6">
+      <p>終了時間</p>
+      <%= select_tag :end_time, options_for_select(AttendancesHelper.makeTimeArray(), nil), label: true, class: "form-control", :onchange => "onSelectChange(this,'end_time')".html_safe %>
+    </div>
+  </div>
+  <hr />
 
-<%= link_to 'Back', attendances_path %>
+  <div class="container-fluid">
+      <table class="table">
+        <tr>
+          <th>日にち</th>
+          <th>開始時間</th>
+          <th>終了時間</th>
+          <th colspan="1"></th>
+        </tr>
+
+<% for i in 0..14 do %>
+        <tr>
+          <% date = Date.current + i %>
+          <% attendance = @attendances.find_by(:date => date) %>
+          <%= form_tag '/attendances/create_remote', multipart: true, remote: true do |f| %>
+          <td style="font-size:16px;">
+            <%= date.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[date.wday]})") %>
+            <%= hidden_field_tag :date, date, id: date %>
+          </td>
+          <td>
+            <%= select_tag :start_time, options_for_select(AttendancesHelper.makeTimeArray(), attendance.present? ? attendance.start_time : nil), {id: "#{date}:start_time", class: "form-control"} %>
+          </td>
+          <td>
+            <%= select_tag :end_time, options_for_select(AttendancesHelper.makeTimeArray(), attendance.present? ? attendance.end_time : nil), {id: "#{date}:end_time", class: "form-control"} %>
+          </td>
+          <td>
+            <%= submit_tag '更新', :class => 'btn btn-primary' %>
+            <% if attendance %>
+              <%= link_to '削除', attendance_path(attendance, :date => date), method: :delete, :class => 'btn btn-danger' %>
+            <% end %>
+          </td>
+          <% end %>
+        </tr>
+<% end %>
+      </table>
+
+  </div>
+  <%= link_to 'Back', attendances_path %>
+</div>

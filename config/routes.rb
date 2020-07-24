@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :attendances do
     collection do
       post 'slack'
+      post 'create_remote'
     end
   end
   resources :daily_reports do

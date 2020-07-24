@@ -14,7 +14,7 @@ class AttendancesController < InheritedResources::Base
     end
   end
 
-  def create
+  def create_or_set
     attendance = Attendance.find_or_initialize_by(:user_id => current_user.id, :date => Date.parse(params[:date]))
     attendance.start_time = params[:start_time]
     attendance.end_time = params[:end_time]
@@ -26,13 +26,29 @@ class AttendancesController < InheritedResources::Base
       attendance.end_time = attendance.start_time
     end
     attendance.save
-    redirect_to attendances_path(:date => params[:date])
+
+  end
+
+  def create
+    self.create_or_set
+    path = Rails.application.routes.recognize_path(request.referer)
+    redirect_to action: path[:action], :date => params[:date]
+  end
+
+  def create_remote
+    self.create_or_set
+
   end
 
   def destroy
     Attendance.find(params[:id]).destroy
     flash[:success] = "予定を削除しました"
-    redirect_to attendances_path(:date => params[:date])
+    path = Rails.application.routes.recognize_path(request.referer)
+    redirect_to action: path[:action], :date => params[:date]
+  end
+  def new
+    today = Date.current
+    @attendances = Attendance.where("date >= ? AND date <= ?", today, today + 14)
   end
 
   def slack
