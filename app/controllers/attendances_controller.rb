@@ -48,7 +48,7 @@ class AttendancesController < InheritedResources::Base
   end
   def new
     today = Date.current
-    @attendances = Attendance.where("date >= ? AND date <= ?", today, today + 14)
+    @attendances = Attendance.where("user_id = ? AND date >= ? AND date <= ?", current_user.id, today, today + 14)
   end
 
   def slack
