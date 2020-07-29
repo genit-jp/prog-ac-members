@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_action :authenticate_user!, :require_permitted_user, except:  []
   def index
     @date = Date.current
-    @profiles = Profile.joins(user:[:level]).where("is_active = ?", true)
+    @profiles = Profile.where("is_active = ?", true)
     @articles = Article.where(:is_active => true).order(priority: "DESC")
     @attendances = Attendance.where("date >= ? and date <= ?", @date.ago(7.days), @date)
     @timelines = []
