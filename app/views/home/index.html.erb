@@ -79,6 +79,7 @@
       <a href="<%= profile_path(profile) %>">
         <div class="card">
           <div class="card-body">
+            <p style="float:right;"><%= profile.user.level ? "#{profile.user.level.stage}" : '' %></p>
             <h5 class="card-title"><%= profile.name %></h5>
             <img src="<%= profile.icon_image %>" style="max-width:64px;max-height:64px;float:left;margin-right:4px;">
             <p class="card-text"><%= profile.goal %></p>
