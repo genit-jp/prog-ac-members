@@ -8,7 +8,7 @@ class ProfilesController < InheritedResources::Base
   end
   def show
     @profile = Profile.find(params[:id])
-    @purposes = Purpose.where(:user_id => current_user.id).order(created_at: "DESC")
+    @purposes = Purpose.where(:user_id => @profile.user_id).order(created_at: "DESC")
   end
   private
 
