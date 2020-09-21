@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :purposes
   resources :code_reviews
   resources :answers
   resources :questions do

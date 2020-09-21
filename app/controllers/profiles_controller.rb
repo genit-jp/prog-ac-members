@@ -6,6 +6,10 @@ class ProfilesController < InheritedResources::Base
   def edit
     @profile = Profile.find_or_create_by(id: current_user.id, user_id: current_user.id)
   end
+  def show
+    @profile = Profile.find(params[:id])
+    @purposes = Purpose.where(:user_id => current_user.id).order(created_at: "DESC")
+  end
   private
 
     def profile_params

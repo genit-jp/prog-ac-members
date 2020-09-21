@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_11_043147) do
+ActiveRecord::Schema.define(version: 2020_09_21_132012) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -154,6 +154,15 @@ ActiveRecord::Schema.define(version: 2020_06_11_043147) do
     t.datetime "updated_at", null: false
     t.string "slack_user_id"
     t.string "github_id"
+  end
+
+  create_table "purposes", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title"
+    t.string "text"
+    t.string "result"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "questions", force: :cascade do |t|
