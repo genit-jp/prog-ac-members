@@ -5,6 +5,7 @@ class ProfilesController < InheritedResources::Base
   end
   def edit
     @profile = Profile.find_or_create_by(id: current_user.id, user_id: current_user.id)
+    @purposes = Purpose.where(:user_id => @profile.user_id).order(created_at: "DESC")
   end
   def show
     @profile = Profile.find(params[:id])

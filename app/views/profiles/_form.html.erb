@@ -25,6 +25,23 @@
         <%= form.submit '更新', :class => 'btn btn-primary' %>
       </div>
 <% end %>
+<h3>目標一覧</h3>
+<div class="list-group">
+  <% @purposes.each do |purpose| %>
+    <a class="list-group-item list-group-item-action" href="<%= edit_purpose_path(purpose) %>">
+      <div class="d-flex w-100 justify-content-between">
+        <p class="mb-1"><%= purpose.title %></p>
+        <small>
+          <%= ApplicationHelper.makeDateTimePastTime(purpose.created_at) %>
+        </small>
+      </div>
+    </a>
+  <% end %>
+</div>
+<% if current_user.id == @profile.user_id %>
+  <%= link_to_if current_user.id == @profile.user_id, '目標追加', new_purpose_path(), class: 'btn btn-outline-secondary' %>
+<% end %>
+
 <script>
     function pathToFilename(path) {
         const arr = path.split(/\\|\//)
