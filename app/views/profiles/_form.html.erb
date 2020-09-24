@@ -30,7 +30,7 @@
   <% @purposes.each do |purpose| %>
     <a class="list-group-item list-group-item-action" href="<%= edit_purpose_path(purpose) %>">
       <div class="d-flex w-100 justify-content-between">
-        <p class="mb-1"><%= purpose.title %></p>
+        <p class="mb-1"><%= purpose.goal1m %></p>
         <small>
           <%= ApplicationHelper.makeDateTimePastTime(purpose.created_at) %>
         </small>

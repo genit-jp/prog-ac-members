@@ -1,7 +1,7 @@
 class PurposesController < InheritedResources::Base
   def new
     @now = Date.current
-    @purpose = Purpose.new(:user_id => current_user.id, :title => "#{@now.year}年#{@now.month+1}月：XXXXX")
+    @purpose = Purpose.new(:user_id => current_user.id)
   end
   def edit
     @now = Date.current
@@ -14,7 +14,6 @@ class PurposesController < InheritedResources::Base
   private
 
     def purpose_params
-      params.require(:purpose).permit(:user_id, :title, :text, :result)
+      params.require(:purpose).permit(:user_id, :goal6m, :goal3m, :goal1m, :text, :result)
     end
-
 end

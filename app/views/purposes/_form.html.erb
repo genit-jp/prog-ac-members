@@ -13,7 +13,9 @@
 
   <%= form.hidden_field :user_id %>
 
-  <%= form.text_field :title, label: "目標(#{@now.year}年#{@now.month+1}月：XXXXX)" %>
+  <%= form.text_field :goal6m, label: "6ヶ月後のなりたい自分" %>
+  <%= form.text_field :goal3m, label: "3ヶ月後のなりたい自分" %>
+  <%= form.text_field :goal1m, label: "1ヶ月後のなりたい自分" %>
   <%= form.text_area :text, label: "目標達成までの過程", rows: 15 %>
   <%= form.text_area :result, label: "結果(次回の1on1で記載します)", rows: 8 %>
 
