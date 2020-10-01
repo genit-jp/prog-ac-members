@@ -1,33 +1,69 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Purposes</h1>
+<h1>みんなの目標一覧</h1>
 
-<table>
+<script type="text/javascript">
+    function setDialog(user, date, strPurpose) {
+        const purpose = JSON.parse(decodeURIComponent(strPurpose))
+        document.getElementById('dialog-title').innerText = decodeURIComponent(date) + " - " + decodeURIComponent(user)
+        document.getElementById('goal1m').innerText = purpose.goal1m
+        document.getElementById('goal3m').innerText = purpose.goal3m
+        document.getElementById('goal6m').innerText = purpose.goal6m
+        document.getElementById('todo').innerText = purpose.text
+        // if(link && link.length > 0){
+        //     document.getElementById('dialog-link').href = decodeURIComponent(link)
+        // }
+        // document.getElementById('dialog-footer').style.display = (link && link.length > 0) ? 'block' : 'none'
+    }
+</script>
+
+<table class="table">
   <thead>
     <tr>
-      <th>User</th>
-      <th>Title</th>
-      <th>Text</th>
-      <th>Result</th>
-      <th colspan="3"></th>
+      <th>メンバー</th>
+      <th>設定日</th>
+      <th>1ヶ月後</th>
+      <th>3ヶ月後</th>
+      <th>6ヶ月後</th>
+      <th></th>
     </tr>
   </thead>
 
-  <tbody>
     <% @purposes.each do |purpose| %>
       <tr>
-        <td><%= purpose.user_id %></td>
-        <td><%= purpose.title %></td>
-        <td><%= purpose.text %></td>
-        <td><%= purpose.result %></td>
-        <td><%= link_to 'Show', purpose %></td>
-        <td><%= link_to 'Edit', edit_purpose_path(purpose) %></td>
-        <td><%= link_to 'Destroy', purpose, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= purpose.user&.profile&.name %></td>
+        <td><%= purpose.created_at.strftime('%Y/%m/%d') %></td>
+        <td><%= purpose.goal6m&.truncate(10) %></td>
+        <td><%= purpose.goal3m&.truncate(10) %></td>
+        <td><%= purpose.goal1m&.truncate(10) %></td>
+        <td><a href="" data-toggle="modal" data-target="#modal1" onclick="setDialog('<%= ApplicationHelper.escape(purpose.user&.profile&.name) %>','<%= ApplicationHelper.escape(purpose.created_at.strftime('%Y/%m/%d')) %>','<%= ApplicationHelper.escape(purpose.to_json) %>')">表示</a></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Purpose', new_purpose_path %>
+<div class="modal" id="modal1" tabindex="-1"
+     role="dialog" aria-labelledby="label1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dialog-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <h5 class="card-title">6ヶ月後</h5>
+          <pre class="card-text" id="goal6m"></pre>
+          <h5 class="card-title">3ヶ月後</h5>
+          <pre class="card-text" id="goal3m"></pre>
+          <h5 class="card-title">1ヶ月後</h5>
+          <pre class="card-text" id="goal1m"></pre>
+          <h5 class="card-title">やること</h5>
+          <pre class="card-text" id="todo"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

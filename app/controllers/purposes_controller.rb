@@ -3,6 +3,9 @@ class PurposesController < InheritedResources::Base
     @now = Date.current
     @purpose = Purpose.new(:user_id => current_user.id)
   end
+  def index
+    @purposes = Purpose.includes([user: :profile]).all()
+  end
   def edit
     @now = Date.current
     super

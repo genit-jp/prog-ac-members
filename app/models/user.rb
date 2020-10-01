@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_one :profile
   has_many :attendances
   has_many :bookings
+  has_many :purposes
   has_one :level
   has_many :answers
 
