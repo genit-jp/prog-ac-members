@@ -33,9 +33,9 @@
       <tr>
         <td><%= purpose.user&.profile&.name %></td>
         <td><%= purpose.created_at.strftime('%Y/%m/%d') %></td>
-        <td><%= purpose.goal6m&.truncate(10) %></td>
-        <td><%= purpose.goal3m&.truncate(10) %></td>
         <td><%= purpose.goal1m&.truncate(10) %></td>
+        <td><%= purpose.goal3m&.truncate(10) %></td>
+        <td><%= purpose.goal6m&.truncate(10) %></td>
         <td><a href="" data-toggle="modal" data-target="#modal1" onclick="setDialog('<%= ApplicationHelper.escape(purpose.user&.profile&.name) %>','<%= ApplicationHelper.escape(purpose.created_at.strftime('%Y/%m/%d')) %>','<%= ApplicationHelper.escape(purpose.to_json) %>')">表示</a></td>
       </tr>
     <% end %>
