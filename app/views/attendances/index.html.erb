@@ -54,7 +54,7 @@
   <div class="container-fluid">
     <div class="row">
       <% for i in 10..21 do %>
-        <% for j in 0..0 do %>
+        <% for j in 0..1 do %>
           <% time = "#{i}:#{j==0 ? '00' : '30'}" %>
           <div class="col-4 col-sm-3 col-lg-2">
             <% booking = @bookings.select { |booking| booking.start_time == time }.first %>
